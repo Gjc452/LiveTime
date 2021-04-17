@@ -14,7 +14,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .cellWrapper {
-  height: 40%;
+  height: 36vh;
   margin: 80px 0;
   position: relative;
   .cellTop {

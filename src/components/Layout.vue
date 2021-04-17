@@ -24,6 +24,9 @@ export default {
     flex-grow: 1;
     overflow: auto;
     display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 40px;
   }
 }
 </style>

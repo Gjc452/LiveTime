@@ -1,11 +1,9 @@
 <template>
   <layout>
-    <div class="content">
-      <p class="month">中国现阶段人均寿命 900 个月</p>
-      <button>点击设置出生年月，查看人生进度</button>
-      <Cell />
-      <p class="maxim">赚钱之道很多，但是找不到赚钱的种子，便成不了事业家</p>
-    </div>
+    <p class="month">中国现阶段人均寿命 900 个月</p>
+    <button>点击设置出生年月，查看人生进度</button>
+    <Cell />
+    <p class="maxim">赚钱之道很多，但是找不到赚钱的种子，便成不了事业家</p>
   </layout>
 </template>
 
@@ -19,22 +17,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 0 40px;
-  .month {
-    padding: 20px 0;
-  }
-  button {
-    background: transparent;
-    border: 1px solid black;
-    padding: 8px;
-    border-radius: 2px;
-  }
-  .maxim {
-    font-size: 14px;
-  }
+.month {
+  margin-top: 40px;
+  padding: 20px 0;
+  font-size: 18px;
+}
+button {
+  background: transparent;
+  border: 1px solid black;
+  padding: 8px;
+  border-radius: 2px;
+}
+.maxim {
+  font-size: 14px;
 }
 </style>

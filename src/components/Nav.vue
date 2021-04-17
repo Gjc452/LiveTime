@@ -18,8 +18,9 @@ ul {
   border-top: 1px solid black;
   background-color: #aaa;
   a {
-    padding: 10px;
+    padding: 12px;
     width: 50%;
+    text-align: center;
   }
 }
 </style>

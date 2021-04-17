@@ -2,14 +2,20 @@
   <div class="cellWrapper">
     <div class="cellTop"></div>
     <div class="cell">
-      <div class="time">100%</div>
+      <div ref="time" class="time">{{ number }}</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Cell'
+  name: 'Cell',
+  props: ['time', 'number'],
+  watch: {
+    number: function () {
+      this.$refs.time.style.height = this.number
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -43,6 +49,7 @@ export default {
       left: 0;
       justify-content: center;
       align-items: center;
+      transition: height 300ms linear;
       &::before {
         position: absolute;
         content: "";

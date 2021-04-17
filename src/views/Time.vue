@@ -1,13 +1,11 @@
 <template>
-  <layout>
-    <div>首页</div>
-  </layout>
+  <Layout>时间</Layout>
 </template>
 
 <script>
 import Layout from '../components/Layout.vue'
 export default {
   components: { Layout },
-  name: 'Home'
+  name: 'Time'
 }
 </script>

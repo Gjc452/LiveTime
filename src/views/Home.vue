@@ -14,7 +14,7 @@
         <button @click="reset">清除记录</button>
       </div>
     </div>
-    <Cell :time="datetime" :number="number" />
+    <Cell :number="number" />
     <p class="maxim">赚钱之道很多，但是找不到赚钱的种子，便成不了事业家</p>
     <yd-datetime
       v-show="false"
@@ -73,7 +73,6 @@ export default {
     reset () {
       this.datetime = dayjs().format('YYYY-MM')
       this.$nextTick(() => {
-        console.log(1)
         this.$store.commit('resetAge')
         this.number = '100%'
       })

@@ -10,11 +10,12 @@
 <script>
 export default {
   name: 'Cell',
-  props: ['time', 'number'],
-  watch: {
-    number: function () {
-      this.$refs.time.style.height = this.number
-    }
+  props: ['number'],
+  mounted () {
+    this.$refs.time.style.height = this.number
+  },
+  updated () {
+    this.$refs.time.style.height = this.number
   }
 }
 </script>

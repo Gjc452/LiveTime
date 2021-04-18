@@ -1,11 +1,24 @@
 <template>
   <layout>
     <p class="month" ref="p">中国现阶段人均寿命 900 个月</p>
-    <button @click="open">点击设置出生年月，查看人生进度</button>
+    <button v-if="!hasTime" @click="open">
+      点击设置出生年月，查看人生进度
+    </button>
+    <div v-else class="changeTime">
+      <p>
+        {{ datetime.replace("-", " 年 ").concat(" 月") }}至今
+        {{ liveTime }} 个月
+      </p>
+      <div>
+        <button @click="open">换一个日期</button>
+        <button @click="reset">清除记录</button>
+      </div>
+    </div>
     <Cell :time="datetime" :number="number" />
     <p class="maxim">赚钱之道很多，但是找不到赚钱的种子，便成不了事业家</p>
     <yd-datetime
       v-show="false"
+      :callback="setAge"
       type="month"
       :end-date="endDate"
       start-date="1949-10"
@@ -19,27 +32,53 @@
 import Cell from '../components/Cell.vue'
 import Layout from '../components/Layout.vue'
 import dayjs from 'dayjs'
+
 export default {
   components: { Layout, Cell },
   name: 'Home',
   data () {
     return {
       datetime: '',
-      endDate: '',
+      endDate: dayjs().format('YYYY-MM'),
       number: '100%',
-      liveTime: ''
+      liveTime: 0,
+      hasTime: false
     }
   },
   created () {
-    this.datetime = this.endDate = dayjs().format('YYYY-MM-DD')
+    this.$store.commit('fetchAge')
+    if (this.$store.state.age) {
+      this.datetime = this.$store.state.age
+      this.hasTime = true
+      this.number = (((900 - this.liveTime) / 900) * 100).toFixed(2) + '%'
+    } else {
+      this.datetime = dayjs().format('YYYY-MM')
+      this.hasTime = false
+      this.number = '100%'
+    }
+  },
+  updated () {
+    if (this.$store.state.age) {
+      this.hasTime = true
+      this.number = (((900 - this.liveTime) / 900) * 100).toFixed(2) + '%'
+    } else {
+      this.hasTime = false
+      this.number = '100%'
+    }
   },
   methods: {
     open () {
       this.$refs.datetime.open()
-    }
-  },
-  watch: {
-    datetime: function () {
+    },
+    reset () {
+      this.datetime = dayjs().format('YYYY-MM')
+      this.$nextTick(() => {
+        console.log(1)
+        this.$store.commit('resetAge')
+        this.number = '100%'
+      })
+    },
+    setAge () {
       const year = dayjs().format('YYYY') - this.datetime.slice(0, 4)
       const month =
         year === 0
@@ -47,24 +86,39 @@ export default {
           : 12 - this.datetime.slice(5)
       const allMonth =
         (year === 0 || year === 1 ? 0 : year - 1) * 12 +
-        (year === 0 ? month : month + parseInt(dayjs().format('MM')))
+        (year === 0 ? month : month + parseInt(dayjs().format('MM'))) +
+        1
       this.liveTime = allMonth
-      this.number = (((900 - allMonth) / 900) * 100).toFixed(2) + '%'
+      this.$watch('datetime', function () {
+        this.$store.commit('setAge', this.datetime)
+      })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.changeTime {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  p {
+    font-size: 20px;
+  }
+  button {
+    margin: 16px 5px 0;
+  }
+}
 .month {
   margin-top: 40px;
-  padding: 20px 0;
-  font-size: 18px;
+  padding: 16px 0;
+  font-size: 16px;
 }
 button {
   background: transparent;
   border: 1px solid black;
-  padding: 8px;
+  padding: 6px 8px;
   border-radius: 2px;
 }
 .maxim {

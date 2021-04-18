@@ -76,7 +76,6 @@ export default {
           'https://api.tianapi.com/txapi/dictum/index?key=3082d76fad6ab5bf50099c9ac54a3208&num=1'
         )
         .then((response) => {
-          console.log(1)
           this.maxim = response.data.newslist[0].content
         })
     },

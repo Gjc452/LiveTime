@@ -15,7 +15,7 @@
       </div>
     </div>
     <Cell :number="number" />
-    <p class="maxim">赚钱之道很多，但是找不到赚钱的种子，便成不了事业家</p>
+    <p class="maxim">{{ this.maxim }}</p>
     <yd-datetime
       v-show="false"
       :callback="setAge"
@@ -32,6 +32,7 @@
 import Cell from '../components/Cell.vue'
 import Layout from '../components/Layout.vue'
 import dayjs from 'dayjs'
+import axios from 'axios'
 
 export default {
   components: { Layout, Cell },
@@ -42,7 +43,9 @@ export default {
       endDate: dayjs().format('YYYY-MM'),
       number: '100%',
       liveTime: 0,
-      hasTime: false
+      hasTime: false,
+      maxim: '',
+      n: ''
     }
   },
   created () {
@@ -67,6 +70,16 @@ export default {
     }
   },
   methods: {
+    getMaxim () {
+      axios
+        .get(
+          'http://api.tianapi.com/txapi/dictum/index?key=3082d76fad6ab5bf50099c9ac54a3208&num=1'
+        )
+        .then((response) => {
+          console.log(1)
+          this.maxim = response.data.newslist[0].content
+        })
+    },
     open () {
       this.$refs.datetime.open()
     },
@@ -91,6 +104,11 @@ export default {
       this.$watch('datetime', function () {
         this.$store.commit('setAge', this.datetime)
       })
+    }
+  },
+  watch: {
+    liveTime: function () {
+      this.getMaxim()
     }
   }
 }

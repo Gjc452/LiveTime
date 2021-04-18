@@ -27,7 +27,7 @@ export default {
   .cellTop {
     width: 50%;
     height: 12px;
-    background-color: blanchedalmond;
+    background-color: rgb(235, 238, 245);
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -38,7 +38,7 @@ export default {
     height: 100%;
     padding: 75px;
     border-radius: 8px;
-    background-color: blanchedalmond;
+    background-color: rgb(235, 238, 245);
     overflow: hidden;
     .time {
       position: absolute;
@@ -58,7 +58,7 @@ export default {
         width: 600px;
         height: 600px;
         border-radius: 45%;
-        background-color: blanchedalmond;
+        background-color: rgb(235, 238, 245);
         top: -592px;
         animation: wave 7s linear infinite;
       }
